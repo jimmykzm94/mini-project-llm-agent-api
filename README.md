@@ -10,7 +10,7 @@
     2. Todoist API
  
 ## Prerequisite
-1. **Google Account** – To use Google Sheets API, you need to set it up from Google Cloud. <span style="color: red;">This setup is not covered here.</span>
+1. **Google Account** – To use Google Sheets API, you need to set it up from Google Cloud. *This setup is not covered here.*
 2. **Todoist Account** – Go to `Settings` > `Integrations` > `Developer` tab, and copy the API token.
 3. **Python Environment** – Create a virtual environment, activate it, and run:
    ```bash
