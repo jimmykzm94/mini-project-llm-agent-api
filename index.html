@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Test Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .passed {
+            color: green;
+        }
+
+        .failed {
+            color: red;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        canvas {
+            max-width: 400px;
+            max-height: 400px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Unit Test Report</h1>
+    <div id="summary"></div>
+    <canvas id="chart"></canvas>
+    <table>
+        <thead>
+            <tr>
+                <th>Test Name</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="testTable"></tbody>
+    </table>
+
+    <script>
+        fetch("test_results.json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("summary").innerHTML = `
+          <p><b>Total:</b> ${data.total} | 
+             <span class="passed">Passed:</span> ${data.successes} | 
+             <span class="failed">Failed:</span> ${data.failures}</p>`;
+
+                const tbody = document.getElementById("testTable");
+                data.tests.forEach(test => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>${test.name}</td><td class="${test.status}">${test.status}</td>`;
+                    tbody.appendChild(row);
+                });
+
+                // Pie chart
+                const ctx = document.getElementById("chart").getContext("2d");
+                new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: ["Passed", "Failed"],
+                        datasets: [{
+                            data: [data.successes, data.failures],
+                            backgroundColor: ["#4CAF50", "#F44336"]
+                        }]
+                    }
+                });
+            });
+    </script>
+</body>
+
+</html>
