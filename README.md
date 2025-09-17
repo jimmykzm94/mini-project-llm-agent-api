@@ -41,6 +41,13 @@ docker build -t my-google-app .
 docker run -d --env-file .env -p 6001:6001 -p 6002:6002 -p 8081:8081 -v "$(pwd)/credentials.json:/app/credentials.json" -v "$(pwd)/google_tokens:/app/google_tokens" --name my-google-app-container my-google-app
 ```
 
+### Tests
+1. Run tests: `python run_tests.py` (generates `test_results.json`)
+2. View results: run `python -m http.server 8000` and open `index.html`
+
+    Example:
+    ![result](index.png)
+
 ## Keywords
 ![Python](https://img.shields.io/badge/Language-Python-blue)
 ![ZeroMQ](https://img.shields.io/badge/-ZeroMQ-red)
